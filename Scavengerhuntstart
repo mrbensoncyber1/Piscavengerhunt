@@ -1,0 +1,20 @@
+#!/bin/sh
+
+DIRECTORIES=(
+    /home/$USER/Pictures
+    /home/$USER/Desktop
+    /home/$USER/Templates
+    /home/$USER/python_games
+    /home/$USER/Documents
+    /home/$USER/Documents
+    /home/$USER/Music)
+
+for dir in $DIRECTORIES; do mkdir -p $dir; done
+
+wget https://github.com/mrbensoncyber1/Piscavengerhunt/blob/main/Sekol.txt -P "/home/$USER/Pictures"
+wget https://github.com/mrbensoncyber1/Piscavengerhunt/blob/main/Benson.txt -P "/home/$USER/Desktop"
+wget https://github.com/mrbensoncyber1/Piscavengerhunt/blob/main/Bionci.txt -P "/home/$USER/Templates"
+wget https://github.com/mrbensoncyber1/Piscavengerhunt/blob/main/Miller.txt -P "/home/$USER/python_games"
+wget https://github.com/mrbensoncyber1/Piscavengerhunt/blob/main/Mabel.txt -P "/home/$USER/Documents"
+wget https://github.com/mrbensoncyber1/Piscavengerhunt/blob/main/Ch3ster.txt -P "/home/$USER/Documents"
+wget https://github.com/mrbensoncyber1/Piscavengerhunt/blob/main/Fozzie.txt -P "/home/$USER/Music"
