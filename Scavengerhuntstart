@@ -1,20 +1,43 @@
-#!/bin/sh
+# Terminal Treasure Hunt - Cybersecurity Edition
+# Author: Mr. Benson
+# Description: A terminal-based treasure hunt for Raspberry Pi or Linux terminals.
+# Students learn basic navigation, file permissions, and safe handling of scripts.
 
-DIRECTORIES=(
-    /home/$USER/Pictures
-    /home/$USER/Desktop
-    /home/$USER/Templates
-    /home/$USER/python_games
-    /home/$USER/Documents
-    /home/$USER/Documents
-    /home/$USER/Music)
+import os
 
-for dir in $DIRECTORIES; do mkdir -p $dir; done
+def setup_game():
+    base_dir = os.path.expanduser("~/cyber_hunt")
+    os.makedirs(base_dir, exist_ok=True)
 
-wget https://raw.githubusercontent.com/mrbensoncyber1/Piscavengerhunt/refs/heads/main/Sekol.txt -P "/home/$USER/Pictures"
-wget https://raw.githubusercontent.com/mrbensoncyber1/Piscavengerhunt/refs/heads/main/Benson.txt -P "/home/$USER/Desktop"
-wget https://raw.githubusercontent.com/mrbensoncyber1/Piscavengerhunt/refs/heads/main/Bionci.txt -P "/home/$USER/Templates"
-wget https://raw.githubusercontent.com/mrbensoncyber1/Piscavengerhunt/refs/heads/main/Miller.txt -P "/home/$USER/python_games"
-wget https://raw.githubusercontent.com/mrbensoncyber1/Piscavengerhunt/refs/heads/main/Mabel.txt -P "/home/$USER/Documents"
-wget https://raw.githubusercontent.com/mrbensoncyber1/Piscavengerhunt/refs/heads/main/Ch3ster.txt -P "/home/$USER/Documents"
-wget https://raw.githubusercontent.com/mrbensoncyber1/Piscavengerhunt/refs/heads/main/Fozzie.txt -P "/home/$USER/Music"
+    # Define directory structure
+    dirs = [
+        "level1", "level1/hidden", "level2", "level2/decoy",
+        "level3", "level3/malware", "final"
+    ]
+
+    files = {
+        "level1/clue1.txt": "Welcome to the Cyber Hunt!\nLook in the hidden folder.",
+        "level1/hidden/clue2.txt": "Nice job!\nNow head to ../level2.",
+        "level2/decoy/decoy.txt": "Oops! Red herring. Try again.",
+        "level2/clue3.txt": "The malware is near... try level3",
+        "level3/malware/bad_script.sh": "#!/bin/bash\necho 'You found the malware!'",
+        "final/congrats.txt": "Congratulations, agent. Mission complete."
+    }
+
+    # Create directories
+    for d in dirs:
+        os.makedirs(os.path.join(base_dir, d), exist_ok=True)
+
+    # Create files
+    for path, content in files.items():
+        full_path = os.path.join(base_dir, path)
+        with open(full_path, "w") as f:
+            f.write(content)
+
+    # Make the malware file executable
+    os.chmod(os.path.join(base_dir, "level3/malware/bad_script.sh"), 0o755)
+
+    print("Cybersecurity Treasure Hunt setup complete! Navigate to ~/cyber_hunt to begin.")
+
+if __name__ == "__main__":
+    setup_game()
